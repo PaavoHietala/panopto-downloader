@@ -19,6 +19,8 @@ class _Config:
                             URL to download')
         inputs.add_argument('-f', '--file', help = 'A text file with Panopto \
                             stream URLs to download.')
+        inputs.add_argument('-o', '--overwrite', action = 'store_true',
+                            help = 'Overwrite existing files.')
 
         self.args = parser.parse_args()
 
