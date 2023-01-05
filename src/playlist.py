@@ -8,6 +8,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait 
+from selenium.webdriver.support import expected_conditions as EC
 
 from .config import config
 
@@ -47,7 +49,8 @@ def get_ts_url(stream_url):
     ser = Service(config.webdriver_path)
     driver = webdriver.Chrome(service = ser, options = options)
     driver.get(stream_url)
-    time.sleep(.5)
+    wait = WebDriverWait(driver, 5)
+    wait.until(EC.element_to_be_clickable((By.ID, 'playButton')))
     driver.find_element(By.ID, "playButton").click()
     title = driver.title
 
