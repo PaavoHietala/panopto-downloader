@@ -3,6 +3,20 @@ import requests
 from .config import config
 
 def extract_urls(title):
+    '''
+    Extract video chunk URLs from given playlist.
+
+    Parameters
+    ----------
+    title : str
+        Name of the playlist without the .m3u8 extension.
+
+    Returns
+    -------
+    list of str
+        List of all video chunk URLs in order.
+    '''
+
     m3u8_path = os.path.join(config.playlist_dir, f'{title}.m3u8')
 
     with open(m3u8_path, 'r') as f:
@@ -11,13 +25,21 @@ def extract_urls(title):
     return [line.strip() for line in m3u8 if line.startswith('https://')]
 
 def download_video(title):
+    '''
+    Download a complete video from given playlist.
+
+    Parameters
+    ----------
+    title : str
+        Name of the playlist without the .m3u8 extension.
+    '''
+
     max_attempts = 5
     out_path = os.path.join(config.video_dir, f'{title}.ts')
     urls = extract_urls(title)
-
     
     if os.path.isfile(out_path) and config.args.overwrite == False:
-        print(f'File {title}.ts already exists. Use option -o to overwrite.\n')
+        print(f'File {title}.ts already exists. Use option -o to overwrite.')
         return
 
     print(f'Downloading "{title}.ts"')

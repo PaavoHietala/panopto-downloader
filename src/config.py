@@ -3,7 +3,17 @@ import os
 import configparser
 
 class _Config:
+    '''
+    A private class for storing all runtime options from config.ini and CLI
+    arguments. The class is used via "from config import config" which creates
+    a _Config object if it does not exist yet.
+
+    Options are accessed via config.<option> and arguments via config.args.<arg>.
+    '''
+
     def __init__(self):
+        '''Load config.ini and parse available command line arguments.'''
+
         cfgpath = os.path.join(os.path.dirname(os.path.dirname(__file__)),
                                'config.ini')
 
@@ -26,6 +36,21 @@ class _Config:
 
 
     def __getattr__(self, name):
+        '''
+        Enable option retrieval using config.<option> instead of using
+        config.config.get("DEFAULT", <option>).
+
+        Parameters
+        ----------
+        name : str
+            Option name to retrieve.
+
+        Returns
+        -------
+        str
+            Value of the requested option.
+        '''
+
         try:
             return self.config.get("DEFAULT", name)
         except KeyError:
