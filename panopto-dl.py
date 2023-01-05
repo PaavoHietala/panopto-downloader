@@ -1,8 +1,16 @@
-import os
 from src import playlist, utils, video
 from src.config import config
 
 def download_stream(url):
+    '''
+    Download a playlist and a video file from given Panopto stream page.
+
+    Parameters
+    ----------
+    url : str
+        URL of the Panopto stream page to download.
+    '''
+
     ts_url, title = playlist.get_ts_url(url)
 
     if ts_url:
