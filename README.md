@@ -40,7 +40,7 @@ python panopto-dl.py -f <file_with_urls.txt>
 
 ### Overwrite protection
 
-By default th file are protected from accidental overwrites. To enable overwriting, use the option `-o`:
+By default the files are protected from accidental overwrites. To enable overwriting, use the option `-o`:
 
 ```
 python panopto-dl.py -s <stream url> -o
